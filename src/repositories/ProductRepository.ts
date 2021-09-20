@@ -38,16 +38,38 @@ export default class ProductRepository {
     return product;
   }
 
-  public deleteproduct(code: number) : Product | undefined {
-    let product   
+  public deleteproduct(code: number): Product | undefined {
+    let product
 
-    for (let i = 0; i < this.products.length; i++){
-      if(code === this.products[i].code){
+    for (let i = 0; i < this.products.length; i++) {
+      if (code === this.products[i].code) {
         product = this.products[i]
-        this.products.splice(i,1)
+        this.products.splice(i, 1)
         break;
       }
     }
     return product
   }
+
+  public putProduct({ buyPrice, code, description, lovers, sellPrice, tags }: Product): Product | undefined {
+    const product = new Product({
+      buyPrice,
+      code,
+      description,
+      lovers,
+      sellPrice,
+      tags
+    })
+
+    let i = 0
+
+    for (i; i < this.products.length; i++) {
+      if (code === this.products[i].code) {
+        this.products[i] = product
+        break;
+      }
+    }
+    return product
+  }
+
 }
